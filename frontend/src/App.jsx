@@ -199,7 +199,7 @@ export default function BijliSathi() {
   const tariff = getTariff();
   const projBill = (monthKwh / Math.max(new Date().getDate(), 1)) * 30 * 6.0;
   const totalKw = apps.filter(a => a.active).reduce((s, a) => s + a.kwh, 0) + 0.35;
-  const co2Month = (monthKwh * CO2_PER_KWH).toFixed(1);
+  const co2Month = +(monthKwh * CO2_PER_KWH).toFixed(1);
   const billShock = (projBill - lastBill) / lastBill > 0.15;
   const cheapRate = 3.50;
 
@@ -218,7 +218,8 @@ export default function BijliSathi() {
   useEffect(() => {
     if (tab === "assistant" && chatMsgs.length === 0)
       setChatMsgs([{ role: "bot", text: `Namaste! 🙏 I'm Bijli Mitra, your AI energy assistant.\n\nCurrent tariff: ${tariff.name} · ₹${tariff.rate}/unit\n\nAsk me about your bill, tips, or carbon footprint!`, chips: ["Why is my bill high?", "Show savings tips", "My carbon footprint"] }]);
-  }, [tab]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, tariff.name, tariff.rate]);
 
   useEffect(() => { if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight; }, [chatMsgs]);
 
@@ -227,7 +228,7 @@ export default function BijliSathi() {
     setChatInput("");
     setChatMsgs(p => [...p, { role: "user", text: msg }]);
     setTimeout(() => { const r = getChatResp(msg, apps, score, monthKwh, projBill, lastBill); setChatMsgs(p => [...p, { role: "bot", ...r }]); }, 500);
-  }, [chatInput, apps, score, monthKwh, projBill]);
+  }, [chatInput, apps, score, monthKwh, projBill, lastBill]);
 
   const toggleApp = id => setApps(p => p.map(a => a.id === id ? { ...a, active: !a.active } : a));
   const acceptRec = (name, sv) => { setScore(s => s + 15); alert(`✅ ${name} scheduled for Off-Peak!\n+15 Energy Score!\nSaving: ₹${sv.toFixed(2)}/hr`); };
@@ -531,7 +532,7 @@ export default function BijliSathi() {
   const Bills = () => {
     const bills = [1650, lastBill, projBill];
     const maxB = Math.max(...bills) * 1.2;
-    const acCost = acHours * 1.5 * (Math.min(acHours, 4) * 8.5 + (Math.max(acHours - 4, 0) * 3.5)) / Math.max(acHours, 1) * 30;
+    const acCost = 1.5 * (Math.min(acHours, 4) * 8.5 + Math.max(acHours - 4, 0) * 3.5) * 30;
     const acOpt = acHours * 1.5 * 3.5 * 30;
     return <div>
       <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>📄 Bill Predictor</div>
@@ -747,14 +748,14 @@ export default function BijliSathi() {
 
   const renderScreen = () => {
     switch (tab) {
-      case "dashboard": return Dashboard();
-      case "optimizer": return Optimizer();
-      case "plugs": return Plugs();
-      case "assistant": return Assistant();
-      case "bills": return Bills();
-      case "carbon": return Carbon();
-      case "rewards": return Rewards();
-      case "alerts": return Alerts();
+      case "dashboard": return <Dashboard />;
+      case "optimizer": return <Optimizer />;
+      case "plugs": return <Plugs />;
+      case "assistant": return <Assistant />;
+      case "bills": return <Bills />;
+      case "carbon": return <Carbon />;
+      case "rewards": return <Rewards />;
+      case "alerts": return <Alerts />;
       default: return null;
     }
   };
