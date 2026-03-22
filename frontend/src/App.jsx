@@ -130,7 +130,7 @@ function LoginScreen({ language, setLanguage, onLogin }) {
   const handleLogin = () => {
     if (!email.includes("@")) return alert("Please enter a valid email address.");
     const namePart = email.split("@")[0];
-    const parsedName = namePart.split(/[\.\-_]/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") || "User";
+    const parsedName = namePart.split(/[\.\-_]/).filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") || "User";
     onLogin(parsedName, email);
   };
 
@@ -781,7 +781,9 @@ export default function BijliSathi() {
           ))}
         </nav>
         <div style={{ margin: "0 10px 12px", padding: "10px 12px", background: C.bg3, borderRadius: 12, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ width: 30, height: 30, background: "linear-gradient(135deg,#FF8C00,#FF5722)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff", flexShrink: 0 }}>{userName.split(" ").map(n=>n[0]).join("").toUpperCase().substring(0,2) || "U"}</div>
+          <div style={{ width: 30, height: 30, background: "linear-gradient(135deg,#FF8C00,#FF5722)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+            {userName ? userName.split(/[\s]+/).filter(Boolean).map(n=>n[0]).join("").toUpperCase().substring(0,2) || "U" : "U"}
+          </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 12, fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 100 }}>{userName}</div>
             <div style={{ fontSize: 11, color: C.saffron, fontWeight: 600 }}>⚡ {score} pts</div>
