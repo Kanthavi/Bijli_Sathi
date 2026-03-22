@@ -1,0 +1,54 @@
+Traditional electricity apps provided by DISCOMs mainly focus on billing and basic consumption data. They lack:
+Real-time actionable insights
+Appliance-level monitoring and control
+Cost optimization based on tariff timings
+Users often end up paying higher electricity bills due to inefficient usage patterns.
+💡 Solution
+Bijli Sathi solves this by offering:
+📊 Smart meter–like analytics (simulated in real-time)
+🔌 Unified appliance management system
+⏱️ Time-of-Day (ToD) tariff-based optimization
+💰 Cost-saving recommendations in ₹
+The app intelligently suggests when to use appliances to minimize electricity cost.
+✨ Key Features
+📈 Unified Energy Dashboard
+Displays daily/weekly energy usage (kWh)
+Shows estimated cost in ₹
+Highlights current tariff slot (Peak / Off-Peak)
+⚙️ Appliance Management
+Add appliances like AC, geyser, washing machine
+Control and schedule usage
+One dashboard for all devices
+🤖 Rule-Based Optimization
+Suggests cheapest time slots based on ToD tariffs
+No heavy ML – simple, transparent logic
+Shows exact savings (e.g., “Save ₹18 by running after 10 PM”)
+🔍 Smart Meter Simulation
+Uses pre-seeded data to mimic real smart meters
+Enables live-like analytics without hardware
+💸 Savings Simulator
+Compare current vs optimized cost
+Monthly savings projection
+🌱 Carbon Footprint Tracking
+Displays CO₂ emissions
+Converts impact into intuitive metrics (like trees)
+🌐 Multi-language Ready UI
+Designed for Indian users
+Simple, intuitive, and scalable interface
+🛠️ Tech Stack
+Frontend: React Native (Expo)
+Backend: Supabase (Auth, Database, Realtime)
+Database: PostgreSQL
+Design: Figma
+Language: TypeScript / JavaScript
+Version Control: Git & GitHub
+Impact
+💰 10–15% reduction in electricity bills
+⚡ Better energy consumption habits
+🌍 Reduced carbon footprint
+🔮 Future Scope
+Integration with real DISCOM APIs
+Smart plug & IoT device support
+AI-based predictive optimization
+Multi-language expansion
+Deployment as a utility-supported platform
